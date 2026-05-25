@@ -1,0 +1,11 @@
+@model int
+
+<a class="btn-sm-square bg-white rounded-circle ms-3 position-relative" asp-controller="Cart" asp-action="Index">
+    <small class="fa fa-shopping-bag text-body"></small>
+    @if (Model > 0)
+    {
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            @Model
+        </span>
+    }
+</a>

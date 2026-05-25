@@ -1,0 +1,85 @@
+@model MVClayout.Models.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Đăng ký";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="bg-light rounded p-5 wow fadeInUp" data-wow-delay="0.1s">
+                    <h1 class="display-5 mb-4 text-center">Đăng ký tài khoản</h1>
+                    
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                        </div>
+                    }
+
+                    <form asp-action="Register" method="post">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="Username" class="form-control" placeholder="Tên đăng nhập" />
+                                    <label asp-for="Username">Tên đăng nhập *</label>
+                                    <span asp-validation-for="Username" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="Email" class="form-control" type="email" placeholder="Email" />
+                                    <label asp-for="Email">Email *</label>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="Password" class="form-control" type="password" placeholder="Mật khẩu" />
+                                    <label asp-for="Password">Mật khẩu *</label>
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="ConfirmPassword" class="form-control" type="password" placeholder="Xác nhận mật khẩu" />
+                                    <label asp-for="ConfirmPassword">Xác nhận mật khẩu *</label>
+                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input asp-for="FullName" class="form-control" placeholder="Họ và tên" />
+                                    <label asp-for="FullName">Họ và tên *</label>
+                                    <span asp-validation-for="FullName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="Phone" class="form-control" placeholder="Số điện thoại" />
+                                    <label asp-for="Phone">Số điện thoại</label>
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="Address" class="form-control" placeholder="Địa chỉ" />
+                                    <label asp-for="Address">Địa chỉ</label>
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary rounded-pill py-3 px-5 w-100" type="submit">Đăng ký</button>
+                            </div>
+                            <div class="col-12 text-center mt-3">
+                                <p class="mb-0">Đã có tài khoản? <a asp-action="Login">Đăng nhập</a></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

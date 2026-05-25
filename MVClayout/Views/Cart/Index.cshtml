@@ -1,0 +1,89 @@
+@model CartViewModel
+
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container">
+        <h1 class="display-3 mb-3 animated slideInDown">Shopping Cart</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a class="text-body" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item"><a class="text-body" asp-controller="HangHoa" asp-action="Index">Products</a></li>
+                <li class="breadcrumb-item text-dark active" aria-current="page">Cart</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        @if (Model.Items.Count == 0)
+        {
+            <div class="alert alert-info mb-4">Your cart is empty.</div>
+            <a asp-controller="HangHoa" asp-action="Index" class="btn btn-primary rounded-pill py-3 px-5">Continue Shopping</a>
+        }
+        else
+        {
+            <div class="table-responsive mb-4">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th class="text-end">Unit Price</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-end">Total</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <img src="@Url.Content(item.ImageUrl)" alt="@item.ProductName" style="width:70px; height:70px; object-fit:cover;">
+                                        <span>@item.ProductName</span>
+                                    </div>
+                                </td>
+                                <td class="text-end">@item.UnitPrice.ToString("N0") VND</td>
+                                <td class="text-center">
+                                    <form asp-controller="Cart" asp-action="UpdateQuantity" method="post" class="d-inline-flex gap-2 align-items-center">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="productId" value="@item.ProductId" />
+                                        <input type="number" min="1" name="quantity" value="@item.Quantity" class="form-control form-control-sm" style="width:80px;" />
+                                        <button type="submit" class="btn btn-sm btn-outline-primary">Update</button>
+                                    </form>
+                                </td>
+                                <td class="text-end">@item.LineTotal.ToString("N0") VND</td>
+                                <td class="text-center">
+                                    <form asp-controller="Cart" asp-action="Remove" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="productId" value="@item.ProductId" />
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Remove</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row g-3 align-items-center">
+                <div class="col-md-6">
+                    <form asp-controller="Cart" asp-action="Clear" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-outline-danger">Clear Cart</button>
+                    </form>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <h4 class="mb-1">Items: @Model.TotalItems</h4>
+                    <h3 class="text-primary mb-3">Grand Total: @Model.TotalAmount.ToString("N0") VND</h3>
+                    <a asp-controller="Checkout" asp-action="Index" class="btn btn-primary rounded-pill py-3 px-5"><i class="fa fa-check me-2"></i>Proceed to Checkout</a>
+                    <a asp-controller="HangHoa" asp-action="Index" class="btn btn-outline-primary rounded-pill py-3 px-5 ms-2">Continue Shopping</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

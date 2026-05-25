@@ -1,0 +1,18 @@
+@{
+    ViewData["Title"] = "Từ chối truy cập";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+<div class="container-xxl py-5">
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <i class="bi bi-exclamation-triangle display-1 text-primary"></i>
+                <h1 class="display-1">403</h1>
+                <h1 class="mb-4">Từ chối truy cập</h1>
+                <p class="mb-4">Xin lỗi, bạn không có quyền truy cập vào trang này.</p>
+                <a class="btn btn-primary rounded-pill py-3 px-5" asp-controller="Home" asp-action="Index">Quay lại trang chủ</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+@model IReadOnlyList<ProductCategory>
+
+@{
+    int? currentCategoryId = ViewBag.CurrentCategoryId;
+}
+
+<ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
+    <li class="nav-item me-2">
+        <a asp-controller="HangHoa"
+           asp-action="Index"
+           class="btn btn-outline-primary border-2 @(currentCategoryId is null ? "active" : "")">
+            All
+        </a>
+    </li>
+    @foreach (var category in Model)
+    {
+        <li class="nav-item me-2">
+            <a asp-controller="HangHoa"
+               asp-action="Index"
+               asp-route-loai="@category.Id"
+               class="btn btn-outline-primary border-2 @(currentCategoryId == category.Id ? "active" : "")">
+                @category.Name
+            </a>
+        </li>
+    }
+</ul>
